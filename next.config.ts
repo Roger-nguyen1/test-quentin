@@ -1,7 +1,21 @@
-import type { NextConfig } from "next";
+// next.config.js
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
-const nextConfig: NextConfig = {
-  /* config options here */
+module.exports = {
+  async rewrites() {
+    return [
+      {
+        source: "/api/Products",
+        destination: "https://cloud.qmartinez.com/api/Products",
+      },
+    ];
+  },
+  async headers() {
+    return [
+      {
+        source: "/api/Products",
+        headers: [{ key: "Access-Control-Allow-Origin", value: "*" }],
+      },
+    ];
+  },
 };
-
-export default nextConfig;
